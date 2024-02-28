@@ -1,5 +1,5 @@
 import {Backdrop, Fade, Modal} from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ModalCircularProgress, QuoteGeneratorModalContainer, QuoteGeneratorModalInnerContainer, QuoteGeneratorSubTitle, QuoteGeneratorTitle } from './QuoteGeneratorElements';
 import ImageBlob from '../animations/ImageBlob';
 import { ImageBlobCon } from '../animations/AnimationElements';
@@ -30,6 +30,33 @@ const QuoteGeneratorModal = ({
 
     const wiseDevQuote = '"If you can center a div, anything is possible."';
     const wiseDevQuoteAuthor = "- a wise senior software engineer";
+    const [bloUrl, setBloUrl] = useState<String | null>(null);
+
+    //handle download
+    const handleDownload = () =>{
+        const link = document.createElement('a');
+        if(typeof bloUrl === 'string'){
+            link.href = bloUrl;
+            link.download = 'quote.png';
+            link.click();
+        }
+    }
+
+    //get quote
+    useEffect(()=>{
+        if(quoteReceived){
+            const binaryData = Buffer.from(quoteReceived, 'base64');
+            const blob = new Blob([binaryData], {type : 'image/png'});
+            const bloUrlGenerated = URL.createObjectURL(blob);
+            setBloUrl(bloUrlGenerated);
+
+            return()=>{
+                URL.revokeObjectURL(bloUrlGenerated);
+            }
+
+          
+        }
+    },[quoteReceived])
 
     return(
         <Modal 
@@ -73,7 +100,7 @@ const QuoteGeneratorModal = ({
                     
                     }
 
-                    { quoteReceived !== null && 
+                    { quoteReceived === null && 
                       <>
                        <QuoteGeneratorTitle>
                          Download your quote!
@@ -86,12 +113,14 @@ const QuoteGeneratorModal = ({
                        <ImageBlobCon>
 
                         <ImageBlob
-                        
+                           quoteReceived = {quoteReceived}
+                           bloUrl = {bloUrl}
                         />
 
                        </ImageBlobCon>
                       
                        <AnimatedDownloadedBtn
+                          handleDownload={handleDownload}
                        />
                       </>
 

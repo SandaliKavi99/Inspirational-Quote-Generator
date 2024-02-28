@@ -1,10 +1,32 @@
 import React from "react";
 import Image from "next/image";
+import Lottie from "react-lottie-player";
+import LottieImage from "../../assests/animated-photo.json";
+import { CenterLottie, DownloadQuoteCard, DownloadQuoteCardConText } from "./AnimationElements";
 
-const AnimatedDownloadedBtn = ()=>{
+interface AnimatedDownloadedBtnProps {
+    handleDownload: () => void;
+}
+
+const AnimatedDownloadedBtn = ({handleDownload} : AnimatedDownloadedBtnProps )=>{
     return(
 
-        <div>AnimatedDownloadedBtn</div>
+        <DownloadQuoteCard 
+        // onClick={null}
+        >
+            <CenterLottie>
+                <Lottie
+                    loop={true}
+                    animationData={LottieImage}
+                    play={true}
+                />
+             </CenterLottie>
+
+            <DownloadQuoteCardConText>
+                Download your quote card
+            </DownloadQuoteCardConText>
+        </DownloadQuoteCard>
+
     );
         
     

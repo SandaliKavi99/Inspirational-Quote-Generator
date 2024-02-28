@@ -1,7 +1,11 @@
 import React from "react";
 import Image from "next/image";
 
-const ImageBlob = ()=>{
+interface ImageBlobProps{
+    quoteReceived: String | null;
+    bloUrl: String | null;
+}
+const ImageBlob = ({quoteReceived,bloUrl}: ImageBlobProps)=>{
     return(
 
         <div>ImageBlob</div>
