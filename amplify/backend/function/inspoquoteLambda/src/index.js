@@ -3,6 +3,8 @@
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
+const AWS = require('aws-sdk');
+
 export async function handler(event) {
     console.log(`EVENT: ${JSON.stringify(event)}`);
     return {
