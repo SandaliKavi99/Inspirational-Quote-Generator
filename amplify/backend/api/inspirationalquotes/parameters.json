@@ -1,5 +1,13 @@
 {
   "AppSyncApiName": "inspirationalquotes",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "authRoleName": {
+    "Ref": "amplify-inspirationalquotes-dev-102432-authRole"
+  },
+  "unauthRoleName": {
+    "Ref": "amplify-inspirationalquotes-dev-102432-unauthRole"
+  },
+  "S3DeploymentBucket": "amplify-inspirationalquotes-dev-102432-deployment",
+  "S3DeploymentRootKey": "amplify-appsync-files/8edb9d5a257f0c96fe128c24c339f7dda5daa4b7"
 }
